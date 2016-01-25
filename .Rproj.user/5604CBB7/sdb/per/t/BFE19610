@@ -1,0 +1,16 @@
+{
+    "contents" : "# Andrew Fairless, February 2010\n# modified April 2015 for posting onto Github\n# This R script calculates the intraclass correlation coefficient (icc)\n# The script can be run by copying and pasting the commands at the R command prompt\n# This script contributed to the Fairless et al 2011 paper\n# Fairless et al 2011, doi: 10.1002/ar.21318, PMID: 21905241, PMCID: PMC3176979\n\ninstall.packages(\"irr\", dependencies = TRUE) # Install package if not already installed\nlibrary(irr)\t\t                         # Library includes intraclass correlation coefficient (icc) functions\n\n# The fictional data in \"altereddata.txt\" were modified from the original \n# empirical data used in Fairless et al 2011.\n# I am using fictional data instead of the original data because I do not have \n# permission of my co-authors to release the data into the public domain.  \n# Each row is a separate mouse/scoring period\n# Each column is a different method or rater for scoring social sniffing time by the mouse\ndata = read.table(\"altereddata.txt\", header = TRUE)    \n\n# Runs loop to correlate each method/rater for scoring social sniffing time to the\n# rigorously, precisely measured \"gold standard\" for scoring social sniffing time \n# (i.e., correlates the first column, which contains the \"gold standard\", to each subsequent column)\nfor(i in 1:dim(data)[2])\t\t     \n{\t\t\t\t\t\t\n     cat(\"\\n\\n\")\t\t\t\t\t\t\n     print(colnames(data[1]))\t\t\t\t\t\t\n     print(colnames(data[i]))\n     # Correlates for \"consistency\" (see Shrout & Fleiss, 1979 and McGraw & Wong, 1996, or R documentation for \"icc\" in package \"irr\")\n     print(icc(cbind(data[,1],data[,i]),model='t',type='c',unit='s')[[7]][1])\t\n     # Correlates for \"agreement\" (see Shrout & Fleiss, 1979 and McGraw & Wong, 1996, or R documentation for \"icc\" in package \"irr\")\n     print(icc(cbind(data[,1],data[,i]),model='t',type='a',unit='s')[[7]][1])\t\n}\t\t\t\t\t\t",
+    "created" : 1452015460515.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1822978967",
+    "id" : "BFE19610",
+    "lastKnownWriteTime" : 1428108408,
+    "path" : "~/Link to backup/2015 code share/Fairless et al 2011 ICC/to share/script.R",
+    "project_path" : "script.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
